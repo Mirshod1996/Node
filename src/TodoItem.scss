@@ -1,0 +1,18 @@
+.item {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  justify-content: space-between;
+  justify-items: center;
+  margin: 20px auto 0 auto;
+
+  //   border: 2px solid black;
+  p {
+    margin: 0px;
+  }
+  .delete {
+    color: red;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
