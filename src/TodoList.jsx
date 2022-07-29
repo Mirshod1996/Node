@@ -12,7 +12,7 @@ const TodoList = ({
   where,
 }) => {
   return (
-    <div>
+    <div className="box">
       <select
         default={"Gender"}
         value={gender}

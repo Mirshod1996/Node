@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import TodoItem from "./TodoItem";
 import TodoList from "./TodoList";
+import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -11,13 +12,15 @@ function App() {
   const [where, setWhere] = useState("");
 
   const baseURL = "http://localhost:5000/person/";
-
   useEffect(() => {
     axios.get(baseURL).then((response) => {
       setTodos(response.data);
     });
   }, []);
 
+  let newId = todos.length + 1;
+
+  if (todos.length === 0) return "No post!";
   const addPost = () => {
     if (gender === "Mr" || gender === "Mrs") {
       if (name !== "") {
@@ -25,7 +28,7 @@ function App() {
           if (where !== "") {
             axios
               .post(baseURL, {
-                id: new Date(),
+                id: newId,
                 gender,
                 name,
                 age,
@@ -53,10 +56,11 @@ function App() {
     }
   };
 
+  console.log(todos);
+
   return (
-    <div>
+    <div className="App">
       <label>
-        {/* <Axios /> */}
         <TodoList
           setAge={setAge}
           age={age}
@@ -70,12 +74,13 @@ function App() {
         />
       </label>
       <div>
-        {todos.map((todo, index) => (
+        {todos?.map((todo, index) => (
           <TodoItem
             key={todo.id}
             axios={axios}
             baseURL={baseURL}
             setTodos={setTodos}
+            todos={todos}
             index={index}
             {...todo}
           />

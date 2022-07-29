@@ -1,8 +1,6 @@
-import "./TodoItem.scss";
-
 const TodoItem = ({
   axios,
-  baseURL,
+  todos,
   setTodos,
   index,
   name,
@@ -11,20 +9,30 @@ const TodoItem = ({
   where,
   id,
 }) => {
-  function removeTodo() {
-    axios.delete(`${baseURL}/${id}`).then(() => {
+  const baseURL = "http://localhost:5000/person/";
+
+  function removeTodo(id) {
+    axios.delete(`${baseURL}${id}`).then((response) => {
       alert("Post deleted!");
-      setTodos(null);
+      setTodos(response.data.data);
+      console.log(response.data);
     });
+    console.log(id);
   }
   return (
     <div className="item">
-      <p>{index}</p>
+      <p>{index + 1}</p>
       <p className="gender">{gender}</p>
       <p className="name">{name}</p>
       <p className="age">{age}</p>
       <p className="where">{where}</p>
-      <span className="delete" onClick={removeTodo}>
+      <span className="delete">!</span>
+      <span
+        className="delete"
+        onClick={() => {
+          removeTodo(id);
+        }}
+      >
         &times;
       </span>
     </div>
